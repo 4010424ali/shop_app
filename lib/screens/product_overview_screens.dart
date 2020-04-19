@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../widgets/product_grid.dart';
 import '../widgets/badge.dart';
+import './cart_screen.dart';
+
 import '../providers/cart.dart';
 
 enum FilterOption {
@@ -52,14 +54,17 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             ],
           ),
           Consumer<Cart>(
-            builder: (_, cart, child) => Badge(
-              child: IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart,
-                ),
-                onPressed: () {},
-              ),
+            builder: (_, cart, ch) => Badge(
+              child: ch,
               value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScrenn.routeName);
+              },
             ),
           )
         ],
