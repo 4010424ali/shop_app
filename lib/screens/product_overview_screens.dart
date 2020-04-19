@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/product_grid.dart';
+import '../widgets/badge.dart';
+import '../providers/cart.dart';
 
 enum FilterOption {
   Favorite,
@@ -18,34 +21,47 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'MyShop',
         ),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOption selectedValue) {
-              setState(() {
-                if (selectedValue == FilterOption.Favorite) {
-                  _showOnlyFavorite = true;
-                } else {
-                  _showOnlyFavorite = false;
-                }
-              });
+              setState(
+                () {
+                  if (selectedValue == FilterOption.Favorite) {
+                    _showOnlyFavorite = true;
+                  } else {
+                    _showOnlyFavorite = false;
+                  }
+                },
+              );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.more_vert,
             ),
             itemBuilder: (_) => [
               PopupMenuItem(
-                child: Text('Only Favorite'),
+                child: const Text('Only Favorite'),
                 value: FilterOption.Favorite,
               ),
               PopupMenuItem(
-                child: Text('Show All'),
+                child: const Text('Show All'),
                 value: FilterOption.All,
               ),
             ],
           ),
+          Consumer<Cart>(
+            builder: (_, cart, child) => Badge(
+              child: IconButton(
+                icon: const Icon(
+                  Icons.shopping_cart,
+                ),
+                onPressed: () {},
+              ),
+              value: cart.itemCount.toString(),
+            ),
+          )
         ],
       ),
       body: ProductsGrid(_showOnlyFavorite),
