@@ -35,7 +35,7 @@ class CartScrenn extends StatelessWidget {
                     label: Text(
                       "\$${cart.totalAmount}",
                       style: TextStyle(
-                        color: Theme.of(context).primaryTextTheme.title.color,
+                        color: Colors.grey,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
