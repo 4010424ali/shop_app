@@ -41,6 +41,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
+    final isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
     _form.currentState.save();
     print(_editedProduct.title);
     print(_editedProduct.description);
@@ -69,6 +73,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
                 },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please provide a value.';
+                  }
+
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: null,
@@ -86,6 +97,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 focusNode: _priceFocusNode,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_descriptionNode);
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a price';
+                  }
+
+                  if (double.tryParse(value) == null) {
+                    return 'Please enter a valid number';
+                  }
+
+                  if (double.parse(value) <= 0) {
+                    return 'Please enter a number greater than a zero';
+                  }
+
+                  return null;
                 },
                 onSaved: (value) {
                   _editedProduct = Product(
@@ -110,6 +136,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     imageUrl: _editedProduct.imageUrl,
                     price: _editedProduct.price,
                   );
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter the description';
+                  }
+
+                  if (value.length < 10) {
+                    return 'Please enter word greater then 10';
+                  }
+
+                  return null;
                 },
               ),
               Row(
@@ -148,6 +185,24 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           imageUrl: value,
                           price: _editedProduct.price,
                         );
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter valid url';
+                        }
+
+                        if (!value.startsWith('https') &&
+                            !value.startsWith('http')) {
+                          return 'Please enter a valid URL';
+                        }
+
+                        if (!value.endsWith('.png') &&
+                            !value.endsWith('.jpg') &&
+                            !value.endsWith('.jpeg')) {
+                          return 'Please enter valid image URL';
+                        }
+
+                        return null;
                       },
                     ),
                   )
