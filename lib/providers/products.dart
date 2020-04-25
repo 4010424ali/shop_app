@@ -71,9 +71,9 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     const url = 'https://shop-c1c59.firebaseio.com/products.json';
-    http
+    return http
         .post(
       url,
       body: json.encode(
@@ -98,6 +98,8 @@ class Products with ChangeNotifier {
       _items.add(newProduct);
       // _items.insert(0, newProduct);
       notifyListeners();
+    }).catchError((err) {
+      throw err;
     });
   }
 
