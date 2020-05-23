@@ -37,7 +37,7 @@ class ProductItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
             onPressed: () {
               cart.addItems(
@@ -48,7 +48,7 @@ class ProductItem extends StatelessWidget {
               Scaffold.of(context).hideCurrentSnackBar();
               Scaffold.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
+                  content: const Text(
                     "Added Item to cart!...",
                     // textAlign: TextAlign.center,
                   ),

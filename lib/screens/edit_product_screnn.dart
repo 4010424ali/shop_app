@@ -104,11 +104,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: Text('An error occure'),
-            content: Text('Something went wrong'),
+            title: const Text('An error occure'),
+            content: const Text('Something went wrong'),
             actions: <Widget>[
               FlatButton(
-                child: Text('Okay'),
+                child: const Text('Okay'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -247,7 +247,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           decoration: BoxDecoration(
                               border: Border.all(width: 1, color: Colors.grey)),
                           child: _imageUrlController.text.isEmpty
-                              ? Text("Enter a URL")
+                              ? const Text("Enter a URL")
                               : FittedBox(
                                   child: Image.network(
                                     _imageUrlController.text,
